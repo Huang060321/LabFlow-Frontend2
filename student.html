@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>LabFlow - 学生端</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="student-body">
+  <header class="topbar">
+    <div class="brand">🔬 LabFlow</div>
+    <button class="outline-btn" onclick="logout()">退出</button>
+  </header>
+  <main class="student-container">
+    <section class="hero">
+      <h1>你好，<span id="studentName"></span> 👋</h1>
+      <p>查设备、约时间、报故障，一站式完成。</p>
+    </section>
+    <nav class="student-nav">
+      <button onclick="showSection('devices')">设备列表</button>
+      <button onclick="showSection('myBookings')">我的预约</button>
+      <button onclick="showSection('myRepairs')">我的报修</button>
+    </nav>
+    <!-- 设备列表 -->
+    <section id="devices" class="page-section">
+      <div class="section-heading">
+        <h2>实验设备</h2>
+        <button class="outline-btn" onclick="scanCode()">
+          📷 扫码查询
+        </button>
+      </div>
+      <input id="searchInput" type="search"
+             placeholder="搜索设备名称或实验室..."
+             oninput="renderDevices()">
+      <div id="deviceList" class="device-grid"></div>
+    </section>
+    <!-- 设备详情和预约 -->
+    <section id="detail" class="page-section hidden">
+      <button class="back-btn" onclick="showSection('devices')">
+        ← 返回设备列表
+      </button>
+      <div class="panel">
+        <h2 id="detailName"></h2>
+        <p id="detailRoom"></p>
+        <p id="detailDescription"></p>
+        <p>当前状态：<strong id="detailStatus"></strong></p>
+        <h3>预约设备</h3>
+        <label for="bookDate">使用日期</label>
+        <input type="date" id="bookDate"
+               onchange="renderSlots()">
+        <label for="bookStart">开始时间</label>
+        <select id="bookStart" onchange="renderSlots()">
+          <option value="08:00">08:00</option>
+          <option value="09:00">09:00</option>
+          <option value="10:00">10:00</option>
+          <option value="11:00">11:00</option>
+          <option value="13:00">13:00</option>
+          <option value="14:00">14:00</option>
+          <option value="15:00">15:00</option>
+          <option value="16:00">16:00</option>
+        </select>
+        <label for="bookEnd">结束时间</label>
+        <select id="bookEnd" onchange="renderSlots()">
+          <option value="09:00">09:00</option>
+          <option value="10:00">10:00</option>
+          <option value="11:00">11:00</option>
+          <option value="12:00">12:00</option>
+          <option value="14:00">14:00</option>
+          <option value="15:00">15:00</option>
+          <option value="16:00">16:00</option>
+          <option value="17:00">17:00</option>
+        </select>
+        <p id="slotMessage" class="hint"></p>
+        <button class="primary-btn" onclick="submitBooking()">
+          提交预约申请
+        </button>
+        <hr>
+        <h3>发现设备故障？</h3>
+        <textarea id="repairDescription" rows="4"
+                  placeholder="请描述设备故障情况"></textarea>
+        <label for="repairPhoto">故障照片（可选）</label>
+        <input type="file" id="repairPhoto" accept="image/*">
+        <button class="outline-btn" onclick="submitRepair()">
+          提交报修
+        </button>
+      </div>
+    </section>
+    <!-- 我的预约 -->
+    <section id="myBookings" class="page-section hidden">
+      <h2>我的预约</h2>
+      <div id="bookingList"></div>
+    </section>
+    <!-- 我的报修 -->
+    <section id="myRepairs" class="page-section hidden">
+      <h2>我的报修</h2>
+      <div id="repairList"></div>
+    </section>
+  </main>
+  <script src="data.js"></script>
+  <script src="student.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LabFlow - 登录</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-card">
+    <div class="logo">🔬 LabFlow</div>
+    <h1>校园实验室设备预约与共享平台</h1>
+    <p>让设备管理更轻松，让实验预约更高效</p>
+    <label for="role">选择使用身份</label>
+    <select id="role">
+      <option value="student">学生 Student</option>
+      <option value="teacher">教师 Teacher</option>
+    </select>
+    <label for="username">用户名</label>
+    <input id="username" placeholder="请输入用户名">
+    <label for="password">密码</label>
+    <input id="password" type="password" placeholder="请输入密码">
+    <button class="primary-btn" onclick="login()">
+      登录 LabFlow
+    </button>
+    <p class="hint">演示版本：输入任意用户名和密码即可进入</p>
+  </div>
+  <script>
+    function login() {
+      const username =
+        document.getElementById("username").value.trim();
+      const password =
+        document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+      if (!username || !password) {
+        alert("请输入用户名和密码！");
+        return;
+      }
+      sessionStorage.setItem("labflowUser", username);
+      sessionStorage.setItem("labflowRole", role);
+      if (role === "student") {
+        window.location.href = "student.html";
+      } else {
+        window.location.href = "teacher.html";
+      }
+    }
+  </script>
+</body>
+</html>

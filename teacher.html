@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>LabFlow - 教师管理后台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="teacher-body">
+  <aside class="sidebar">
+    <div class="sidebar-logo">🔬 LabFlow</div>
+    <p>实验室管理系统</p>
+    <button onclick="showTeacherPage('overview')">
+      📊 总览
+    </button>
+    <button onclick="showTeacherPage('bookings')">
+      📅 预约审核
+    </button>
+    <button onclick="showTeacherPage('repairs')">
+      🔧 报修管理
+    </button>
+    <button onclick="showTeacherPage('equipment')">
+      🧪 设备管理
+    </button>
+    <button onclick="logout()">🚪 退出登录</button>
+  </aside>
+  <main class="teacher-main">
+    <header class="teacher-header">
+      <h1>LabFlow 教师管理后台</h1>
+      <p>欢迎，<span id="teacherName"></span> 老师</p>
+    </header>
+    <!-- 数据总览 -->
+    <section id="overview" class="teacher-section">
+      <h2>实验室数据总览</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>设备总数</span>
+          <strong id="totalDevices">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>待审核预约</span>
+          <strong id="pendingBookings">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>待处理报修</span>
+          <strong id="pendingRepairs">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>已通过预约</span>
+          <strong id="approvedBookings">0</strong>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>预约申请审核结果统计</h3>
+        <div id="usageChart"></div>
+      </div>
+    </section>
+    <!-- 预约审核 -->
+    <section id="bookings" class="teacher-section hidden">
+      <h2>预约审核</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>学生</th>
+              <th>设备</th>
+              <th>日期</th>
+              <th>时间</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="bookingTable"></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- 报修管理 -->
+    <section id="repairs" class="teacher-section hidden">
+      <h2>设备报修管理</h2>
+      <div id="teacherRepairList"></div>
+    </section>
+    <!-- 设备管理 -->
+    <section id="equipment" class="teacher-section hidden">
+      <div class="section-heading">
+        <h2>实验室设备管理</h2>
+        <button class="primary-btn" onclick="toggleAddDevice()">
+          ＋ 新增设备
+        </button>
+      </div>
+      <div id="addDeviceForm" class="panel hidden">
+        <h3>新增设备</h3>
+        <label for="newDeviceName">设备名称</label>
+        <input id="newDeviceName" placeholder="如：数字示波器">
+        <label for="newDeviceRoom">所在实验室</label>
+        <input id="newDeviceRoom" placeholder="如：实验楼 A201">
+        <label for="newDeviceDesc">设备描述</label>
+        <textarea id="newDeviceDesc" rows="3"
+                  placeholder="设备用途说明"></textarea>
+        <button class="primary-btn" onclick="addDevice()">
+          保存设备
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>设备编号</th>
+              <th>设备名称</th>
+              <th>实验室</th>
+              <th>状态</th>
+              <th>管理操作</th>
+            </tr>
+          </thead>
+          <tbody id="equipmentTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="data.js"></script>
+  <script src="teacher.js"></script>
+</body>
+</html>
